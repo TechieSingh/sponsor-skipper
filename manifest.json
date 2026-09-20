@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Sponsor Skipper",
+  "version": "1.0.0",
+  "minimum_chrome_version": "111",
+  "description": "Skip embedded creator sponsorships using SponsorBlock and private, local caption rules. No AI or tracking.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://sponsor.ajay.app/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "Sponsor Skipper" },
+  "options_page": "options.html",
+  "icons": { "16": "assets/icon16.png", "48": "assets/icon48.png", "128": "assets/icon128.png" },
+  "content_scripts": [
+    { "matches": ["https://www.youtube.com/*"], "js": ["bridge.js"], "run_at": "document_start", "world": "MAIN" },
+    { "matches": ["https://www.youtube.com/*"], "js": ["content.js"], "run_at": "document_idle" }
+  ],
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}

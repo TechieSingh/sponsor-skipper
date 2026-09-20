@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sponsor Skipper — Settings</title><link rel="stylesheet" href="settings.css"></head>
+<body class="options">
+  <header><img class="logo" src="assets/icon48.png" alt=""><div><h1>Sponsor Skipper <span class="badge">LOCAL FIRST</span></h1><p>A little less interruption. You're in control.</p></div></header>
+  <main>
+    <section><h2>Skipping</h2>
+      <label class="row primary"><span>Enable Sponsor Skipper<small>Turn off to pause all lookups, detection, and skipping.</small></span><input type="checkbox" data-pref="enabled"></label>
+      <label class="row"><span>Use SponsorBlock<small>Look up community submitted sponsor segments.</small></span><input type="checkbox" data-pref="sponsorBlock"></label>
+      <label class="row"><span>Auto skip known SponsorBlock segments</span><input type="checkbox" data-pref="autoSkipKnown"></label>
+      <label class="row"><span>Use local fallback<small>Check available English captions when no known sponsors are found.</small></span><input type="checkbox" data-pref="localFallback"></label>
+      <label class="row"><span>Auto skip high-confidence local matches</span><input type="checkbox" data-pref="autoSkipLocal"></label>
+      <label class="row"><span>Show suspected sponsor button</span><input type="checkbox" data-pref="showSuspected"></label>
+      <label class="row"><span>Show skip notifications<small>Includes Undo for seven seconds after a skip.</small></span><input type="checkbox" data-pref="showNotifications"></label>
+    </section>
+    <section><h2>Local detection</h2>
+      <label class="row"><span>Detection mode<small>Conservative favors precision. All modes require a clear end to auto skip.</small></span><select data-pref="mode"><option value="conservative">Conservative</option><option value="balanced">Balanced</option><option value="aggressive">Aggressive</option></select></label>
+      <label class="row"><span>Use YouTube heatmap as supporting evidence<small>Optional. Replay data alone can never identify a sponsor.</small></span><input type="checkbox" data-pref="useHeatmap"></label>
+      <p>If a sponsor's end is unclear, the suggestion lets you choose how far to seek. Local rules currently support English captions only.</p>
+    </section>
+    <section><h2>Channel exclusions</h2><ul id="exclusions"></ul></section>
+    <section><h2>Your data stays yours</h2><p>No accounts, analytics, AI, transcript uploads, or segment submissions. Captions are fetched directly from YouTube and processed on this device. SponsorBlock receives a short video hash prefix, plus normal network information such as your IP address.</p><p>Only preferences and a bounded segment cache are saved locally. No transcripts or browsing history logs are stored. YouTube's regular ads are left alone.</p><button type="button" id="clear-cache">Clear local segment cache</button>
+      <details><summary>Developer settings</summary><label class="row"><span>Debug console output<small>Logs video IDs, rule scores, and decisions locally. Off by default.</small></span><input type="checkbox" data-pref="debug"></label></details>
+    </section>
+  </main>
+  <footer><p class="privacy-note">Sponsor data from <a href="https://sponsor.ajay.app" target="_blank" rel="noopener noreferrer">SponsorBlock</a>, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>. <a href="https://github.com/ajayyy/SponsorBlock/wiki/Database-and-API-License" target="_blank" rel="noopener noreferrer">Database license details</a>.</p></footer>
+  <p id="save-status" role="status" aria-live="polite"></p>
+  <script src="options.js"></script>
+</body></html>

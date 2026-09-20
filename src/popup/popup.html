@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sponsor Skipper</title><link rel="stylesheet" href="settings.css"></head>
+<body class="popup">
+  <header><img class="logo" src="assets/icon48.png" alt=""><div><h1>Sponsor Skipper</h1><p>More video. Fewer sponsor reads.</p></div></header>
+  <main>
+    <section aria-label="Quick settings">
+      <label class="row primary"><span>Automatic skipping</span><input type="checkbox" data-pref="enabled" aria-label="Enable Sponsor Skipper"></label>
+      <label class="row"><span>SponsorBlock</span><input type="checkbox" data-pref="sponsorBlock"></label>
+      <label class="row"><span>Local fallback</span><input type="checkbox" data-pref="localFallback"></label>
+      <label class="row"><span>Show skip notification</span><input type="checkbox" data-pref="showNotifications"></label>
+    </section>
+    <section aria-label="Current video"><p class="eyebrow">This video</p><p id="segment-count" class="status-count">Connecting to this tab…</p><p id="video-status" class="muted">Checking the current video.</p><p id="playback-status" class="muted"></p><p id="segment-ranges" class="muted"></p><button type="button" id="retry-video" hidden>Check again</button><button type="button" id="reload-tab" hidden>Reload this tab</button></section>
+    <section id="channel-section" hidden><p class="eyebrow">Channel preference</p><label for="channel-mode" id="channel-name"></label><select id="channel-mode"><option value="enabled">Enabled on this channel</option><option value="all">Disable on this channel</option><option value="local">SponsorBlock only</option></select></section>
+  </main>
+  <footer><p class="privacy-note">Local rules. No AI. No tracking.</p><button id="options" type="button">Settings</button></footer>
+  <p id="save-status" role="status" aria-live="polite"></p>
+  <script src="popup.js"></script>
+</body></html>

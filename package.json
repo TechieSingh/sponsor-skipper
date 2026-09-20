@@ -1,0 +1,26 @@
+{
+  "name": "sponsor-skipper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Private, deterministic sponsor skipping for YouTube",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:browser": "node scripts/browser-test.mjs",
+    "test:chrome": "node scripts/chrome-smoke.mjs",
+    "diagnose": "node scripts/diagnose-video.mjs",
+    "check": "npm run typecheck && npm test && npm run build",
+    "package": "npm run check && node scripts/package.mjs"
+  },
+  "engines": { "node": ">=22" },
+  "devDependencies": {
+    "@types/chrome": "0.1.12",
+    "@types/node": "22.18.6",
+    "esbuild": "0.25.10",
+    "playwright": "1.55.1",
+    "tsx": "4.20.6",
+    "typescript": "5.9.2"
+  }
+}
