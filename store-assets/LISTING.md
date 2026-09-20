@@ -115,22 +115,68 @@ Global promo video: leave blank.
 
 ## Privacy tab
 
-**Single purpose description**
+Paste each block verbatim. All four fit the 1,000-character limit.
 
-> Sponsor Skipper has one purpose: to locate creator-read sponsorship segments inside a YouTube video and move the playback position past them. Every feature — the SponsorBlock lookup, the local caption rules, the popup, and the settings page — exists to serve that single skipping function.
+### Single purpose description  (773 chars)
 
-**Permission justifications**
+```text
+Sponsor Skipper has one narrow purpose: to locate creator-read sponsorship segments inside a YouTube video and move the playback position past them.
 
-- `storage` — Stores the user's preferences, the list of channels they chose to exclude, and a bounded 150-entry cache of previously computed sponsor segment times, so the extension does not repeat the same lookup and detection work on every replay. All of it stays on the device; nothing is synced to an account.
-- Host permission `https://sponsor.ajay.app/*` — Required to make the cross-origin read-only request to the SponsorBlock API that returns community-submitted sponsor segment timestamps. The request is a GET to the privacy-preserving hash-prefix endpoint, sends no cookies or referrer, and the extension never writes to or submits anything to that service.
-- Host permission `https://www.youtube.com/*` (content script match) — Required to detect single-page navigation into a watch page from anywhere on YouTube, read the public player metadata needed to identify the video and its duration, fetch the video's own caption track same-origin when the local fallback runs, and set the playback position to skip a sponsor segment.
-- Remote code — Not used. All JavaScript is bundled in the package.
+Every feature serves that one function. It looks up community-submitted sponsor timestamps from SponsorBlock, and when none exist it applies a fixed set of English caption rules on the user's device to locate the segment. The popup reports what was found for the current video and lets the user undo a skip, disable skipping for a channel, or re-run detection. The options page exposes the same controls plus detection sensitivity and a cache reset.
 
-**Data usage disclosures** — tick nothing in the collected-data list, then certify all three statements. Sponsor Skipper does not collect or transmit personally identifiable information, health information, financial information, authentication information, personal communications, location, web history, or user activity to the developer or any third party. There is no developer-operated server.
+It does not block, hide, or alter YouTube's own advertising. It does not modify page layout, inject content, or provide any feature unrelated to skipping sponsor segments.
+```
 
-**Privacy policy URL:** `https://github.com/TechieSingh/sponsor-skipper/blob/main/PRIVACY.md`
+### "storage" justification  (871 chars)
 
-This field is mandatory. The repo must be **public** for Google to reach it.
+```text
+The "storage" permission is used with chrome.storage.local to keep three things on the user's own device:
+
+1. Preferences - whether skipping is enabled, whether the SponsorBlock lookup and the local caption fallback are each on, detection sensitivity, and notification settings.
+
+2. Channel exclusions - the list of YouTube channels the user has explicitly chosen to disable or restrict.
+
+3. A bounded segment cache - at most 150 entries mapping a video ID to previously computed sponsor start and end times, so the extension does not repeat the same network lookup and caption analysis every time a video is replayed.
+
+Without this permission every setting would reset on each page load, and each replay would trigger a fresh SponsorBlock request. Nothing held in storage is transmitted anywhere, and none of it is synced to an account: chrome.storage.sync is not used.
+```
+
+### Host permission justification  (926 chars)
+
+Covers both hosts, since the form has a single field for them.
+
+```text
+Two host permissions are required.
+
+https://sponsor.ajay.app/* - the primary source of sponsor timestamps. The service worker makes one read-only GET per video to the SponsorBlock API. It uses the privacy-preserving hash-prefix endpoint: only the first four characters of the video ID's SHA-256 hash are sent, never the video ID, channel, title, or captions. No cookies and no referrer are sent, and the extension never writes, votes, or submits anything to that service. Matching the response to the actual video happens locally.
+
+https://www.youtube.com/* - declared as a content_scripts match so the extension can detect single-page navigation into a watch page from anywhere on YouTube, read the public player metadata needed to identify the video and its duration, fetch the video's own caption track same-origin when the local fallback runs, and set currentTime to skip a segment. It acts only on standard /watch pages.
+```
+
+### Remote code
+
+Select **"No, I am not using Remote code"**, then paste (414 chars):
+
+```text
+All JavaScript is bundled into the package at build time with esbuild. The extension has no runtime dependencies, loads no external scripts or modules, and does not use eval(), new Function(), or remotely hosted WebAssembly. The manifest sets content_security_policy to "script-src 'self'; object-src 'none'". Network requests retrieve data only - JSON sponsor timestamps and caption text - never executable code.
+```
+
+### Data usage
+
+Tick **none** of the nine data categories. Nothing is transmitted to the developer
+(there is no developer server) or to any third party in identifiable form.
+
+Then certify **all three** statements — each is true:
+
+- Does not sell or transfer user data to third parties.
+- Does not use or transfer user data for purposes unrelated to the single purpose.
+- Does not use or transfer user data for creditworthiness or lending.
+
+### Privacy policy URL
+
+```text
+https://github.com/TechieSingh/sponsor-skipper/blob/main/PRIVACY.md
+```
 
 ---
 
